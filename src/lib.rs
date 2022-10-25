@@ -7,7 +7,7 @@
 //! use antlion::Sandbox;
 //! use quote::quote;
 //!
-//! let test = Sandbox::new().unwrap();
+//! let test = Sandbox::new("calc").unwrap();
 //! let x: u32 = test.eval(quote! { 2 + 2 }).unwrap();
 //! assert!(x == 4);
 //! ```
@@ -24,7 +24,6 @@ use std::process::Command;
 use std::str::FromStr;
 use std::sync::Mutex;
 use std::{env, fs, io};
-use uuid::Uuid;
 
 /// Internal representation of a `Sandbox`
 ///
@@ -40,10 +39,10 @@ impl Sandbox {
     /// Create a `Sandbox` in `$OUT_DIR` folder
     ///
     /// `$OUT_DIR` is set by Cargo when `build.rs` is present :)
-    pub fn new() -> Result<Self> {
+    pub fn new(uuid: &str) -> Result<Self> {
         let out_dir = env!("OUT_DIR");
         let mut root_dir = PathBuf::from(out_dir);
-        root_dir.push(Uuid::new_v4().to_string());
+        root_dir.push(uuid);
         Command::new("mkdir")
             .args(&["-p", root_dir.to_str().unwrap()])
             .output()?;

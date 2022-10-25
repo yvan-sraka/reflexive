@@ -1,6 +1,6 @@
 [package]
 name = "antlion"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Handy way to evaluate at compile-time any Rust expression"
 repository = "https://github.com/yvan-sraka/antlion"
@@ -13,11 +13,3 @@ license = "MIT"
 [dependencies]
 proc-macro2 = "1.0"
 quote = "1.0"
-
-[dependencies.uuid]
-version = "1.2.1"
-features = [
-    "v4",                # Lets you generate random UUIDs
-    "fast-rng",          # Use a faster (but still sufficiently random) RNG
-    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
-]

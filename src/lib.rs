@@ -44,11 +44,11 @@ impl Sandbox {
         let mut root_dir = PathBuf::from(out_dir);
         root_dir.push(uuid);
         Command::new("mkdir")
-            .args(&["-p", root_dir.to_str().unwrap()])
+            .args(["-p", root_dir.to_str().unwrap()])
             .output()?;
         Command::new("cargo")
             .current_dir(&root_dir)
-            .args(&["new", "sandbox"])
+            .args(["new", "sandbox"])
             .output()?;
         root_dir.push("sandbox");
         Ok(Sandbox {
@@ -62,22 +62,23 @@ impl Sandbox {
     /// https://doc.rust-lang.org/cargo/commands/cargo-add.html
     pub fn deps(self, deps: &[&str]) -> Result<Self> {
         let Self { lock, root_dir } = &self;
-        let _ = lock.lock().unwrap();
+        let lock = lock.lock().unwrap();
         for dep in deps {
             Command::new("cargo")
-                .args(&["add", dep])
-                .current_dir(&root_dir)
+                .args(["add", dep])
+                .current_dir(root_dir)
                 .output()?;
         }
+        drop(lock);
         Ok(self)
     }
 
     /// Evaluate in the Sandbox a given Rust expression
     ///
     /// `quote! { }` would help you to generate a `proc_macro2::TokenStream`
-    pub fn eval<T: FromStr + ToString>(self, expr: TokenStream) -> Result<T> {
+    pub fn eval<T: FromStr + ToString>(&self, expr: TokenStream) -> Result<T> {
         let Self { lock, root_dir } = self;
-        let _ = lock.lock().unwrap();
+        let _lock = lock.lock().unwrap();
         let wrapper = quote! {
             use std::io::prelude::*;
             fn main() -> std::io::Result<()> {
@@ -90,7 +91,7 @@ impl Sandbox {
         fs::write(root_dir.join("src/main.rs"), wrapper.to_string())?;
         Command::new("cargo")
             .arg("run")
-            .current_dir(&root_dir)
+            .current_dir(root_dir)
             .output()?;
         let output = fs::read_to_string(root_dir.join("output"))?
             .parse()

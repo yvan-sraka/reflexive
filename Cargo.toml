@@ -1,6 +1,6 @@
 [package]
 name = "antlion"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 description = "Handy way to evaluate at compile-time any Rust expression"
 repository = "https://github.com/yvan-sraka/antlion"

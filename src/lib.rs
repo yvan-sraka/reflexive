@@ -3,6 +3,10 @@
 //! A magical _meta_ function that evaluate (at compile-time if used inside a
 //! macro which is the point of taking a `TokenStream` input) any Rust expr!
 //!
+//! **N.B.** The MSRV is **1.64.0** since we use `core_ffi_c` library feature.
+//!
+//! ## Example
+//!
 //! ```rust
 //! use antlion::Sandbox;
 //! use quote::quote;
@@ -15,6 +19,22 @@
 //! This library indeed is not what would benefit the most your crate build
 //! time, but it was still design in mind with the will of caching sandbox
 //! compilation.
+//!
+//! ## Acknowledgments
+//!
+//! ⚠️ This is still a working experiment, not yet production ready.
+//!
+//! This project was part of a work assignment as an
+//! [IOG](https://github.com/input-output-hk) contractor.
+//!
+//! ## License
+//!
+//! Licensed under either of [Apache License](LICENSE-APACHE), Version 2.0 or
+//! [MIT license](LICENSE-MIT) at your option.
+//!
+//! Unless you explicitly state otherwise, any contribution intentionally submitted
+//! for inclusion in this project by you, as defined in the Apache-2.0 license,
+//! shall be dual licensed as above, without any additional terms or conditions.
 
 use proc_macro2::TokenStream;
 use quote::quote;

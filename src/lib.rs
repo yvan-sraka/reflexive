@@ -3,8 +3,6 @@
 //! A magical _meta_ function that evaluate (at compile-time if used inside a
 //! macro which is the point of taking a `TokenStream` input) any Rust expr!
 //!
-//! **N.B.** The MSRV is **1.64.0** since we use `core_ffi_c` library feature.
-//!
 //! ## Example
 //!
 //! ```rust
@@ -35,6 +33,8 @@
 //! Unless you explicitly state otherwise, any contribution intentionally submitted
 //! for inclusion in this project by you, as defined in the Apache-2.0 license,
 //! shall be dual licensed as above, without any additional terms or conditions.
+
+#![forbid(unsafe_code)]
 
 use proc_macro2::TokenStream;
 use quote::quote;

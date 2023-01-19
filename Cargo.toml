@@ -6,7 +6,7 @@ license = "MIT OR Apache-2.0"
 name = "antlion"
 repository = "https://github.com/yvan-sraka/antlion"
 rust-version = "1.56.1"
-version = "0.3.1"
+version = "0.3.2"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

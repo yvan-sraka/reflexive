@@ -5,8 +5,6 @@
 A magical _meta_ function that evaluate (at compile-time if used inside a
 macro which is the point of taking a `TokenStream` input) any Rust expr!
 
-**N.B.** The MSRV is **1.64.0** since we use `core_ffi_c` library feature.
-
 ## Example
 
 ```rust

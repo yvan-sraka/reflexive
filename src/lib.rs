@@ -1,4 +1,4 @@
-//! # `antlion`
+//! # `reflexive`
 //!
 //! A magical _meta_ function that evaluate (at compile-time if used inside a
 //! macro which is the point of taking a `TokenStream` input) any Rust expr!
@@ -6,7 +6,7 @@
 //! ## Example
 //!
 //! ```rust
-//! use antlion::Sandbox;
+//! use reflexive::Sandbox;
 //! use quote::quote;
 //!
 //! let test = Sandbox::new("calc").unwrap();

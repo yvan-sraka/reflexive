@@ -38,7 +38,7 @@
 
 use proc_macro2::TokenStream;
 use quote::quote;
-use std::io::Result;
+use std::io::{Result, Write};
 use std::path::PathBuf;
 use std::process::Command;
 use std::str::FromStr;
@@ -69,7 +69,19 @@ impl Sandbox {
         Command::new("cargo")
             .current_dir(&root_dir)
             .args(["new", "sandbox"])
+            .args(["--vcs", "none"])
             .output()?;
+
+        // add [workspace] in Cargo.toml if not present
+        let mut cargo_toml_path = root_dir.clone();
+        cargo_toml_path.push("sandbox/Cargo.toml");
+        if !fs::read_to_string(&cargo_toml_path)?.contains("[workspace]") {
+            fs::OpenOptions::new()
+                .append(true)
+                .open(cargo_toml_path)?
+                .write_all(b"\n[workspace]\n")?;
+        }
+
         root_dir.push("sandbox");
         Ok(Sandbox {
             root_dir,
